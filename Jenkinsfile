@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout SCM') {
             steps {
-                git 'https://github.com/shafeeq0706/activity4.2.git'
+                git branch: 'main', url: 'https://github.com/shafeeq0706/activity4.2.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('my-docker-image')
+                    docker.build('flask_project')
                 }
             }
         }
@@ -19,9 +19,10 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.run('my-docker-image')
+                    docker.run('flask_project')
                 }
             }
         }
     }
 }
+
