@@ -10,9 +10,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Store the built image reference in a variable
-                    myImage = docker.build('flask_project')
+                dir('flask_project') {
+                    script {
+                        docker.build('flask_project')
+                    }
                 }
             }
         }
@@ -20,8 +21,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Use the image reference to run the container
-                    myImage.run('-p 5000:5000')
+                    sh 'docker run -d -p 5000:5000 flask_project'
                 }
             }
         }
