@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/shafeeq0706/activity4.2.git'
+                git 'https://github.com/shafeeq0706/activity4.2.git'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
+                    // Building Docker image as before
                     docker.build('flask_project', './flask_project')
                 }
             }
@@ -16,7 +17,10 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.run('flask_project')
+                    // Running the Docker container inside the Jenkins pipeline
+                    docker.image('flask_project').inside {
+                        sh 'python app.py'  // Adjust this command based on what your app runs
+                    }
                 }
             }
         }
