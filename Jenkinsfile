@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git 'https://github.com/shafeeq0706/activity4.2.git'
+                git credentialsId: 'your-credentials-id', url: 'https://github.com/shafeeq0706/activity4.2.git'
             }
         }
         stage('Echo') {
