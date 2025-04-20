@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git 'https://github.com/shafeeq0706/activity4.2.git'
+                git branch: 'main', url: 'https://github.com/shafeeq0706/activity4.2.git'
             }
         }
         stage('Build Docker Image') {
