@@ -1,11 +1,29 @@
 pipeline {
     agent any
+
+    environment {
+        IMAGE_NAME = "flask_project"
+        CONTAINER_PORT = "5000"
+        HOST_PORT = "5003"  // Change this to an unused port
+    }
+
     stages {
-        stage('Checkout SCM') {
+        stage('Build Docker Image') {
             steps {
-                git 'https://github.com/shafeeq0706/activity4.2.git'  // Correct repo URL
+                script {
+                    sh "docker build -t $IMAGE_NAME ./flask_project"
+                }
             }
         }
-        // Further stages...
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    sh "docker run -d -p $HOST_PORT:$CONTAINER_PORT $IMAGE_NAME"
+                }
+            }
+        }
+
+        // You can add test, deploy, etc. stages here
     }
 }
