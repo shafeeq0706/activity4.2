@@ -3,13 +3,9 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git credentialsId: 'your-credentials-id', url: 'https://github.com/shafeeq0706/activity4.2.git'
+                git 'https://github.com/shafeeq0706/activity4.2.git'  // Correct repo URL
             }
         }
-        stage('Echo') {
-            steps {
-                echo "Repository checkout successful!"
-            }
-        }
+        // Further stages...
     }
 }
